@@ -1,5 +1,5 @@
 FROM golang:1.15-alpine as builder
-
+# 
 ARG REVISION
 
 RUN mkdir -p /podinfo/
