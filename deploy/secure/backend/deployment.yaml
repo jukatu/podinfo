@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: backend
-  namespace: webapp
+  namespace: secure
 spec:
   minReadySeconds: 3
   revisionHistoryLimit: 5
@@ -22,7 +22,7 @@ spec:
       labels:
         app: backend
     spec:
-      serviceAccountName: webapp
+      serviceAccountName: secure
       containers:
       - name: backend
         image: ghcr.io/stefanprodan/podinfo:5.0.3

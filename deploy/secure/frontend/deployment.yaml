@@ -1,8 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend
-  namespace: webapp
+  name: frontend
+  namespace: secure
 spec:
   minReadySeconds: 3
   revisionHistoryLimit: 5
@@ -13,37 +13,58 @@ spec:
     type: RollingUpdate
   selector:
     matchLabels:
-      app: backend
+      app: frontend
   template:
     metadata:
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/port: "9797"
       labels:
-        app: backend
+        app: frontend
     spec:
-      serviceAccountName: webapp
+      serviceAccountName: secure
+      volumes:
+      - name: tls
+        secret:
+          secretName: podinfo-frontend-tls
       containers:
-      - name: backend
-        image: ghcr.io/stefanprodan/podinfo:5.0.3
+      - name: frontend
+        image: deavon/podinfo:secure-port
         imagePullPolicy: IfNotPresent
+        securityContext:
+          capabilities:
+            drop:
+              - ALL
+            add:
+              - NET_BIND_SERVICE
+          allowPrivilegeEscalation: true
         ports:
         - name: http
           containerPort: 9898
           protocol: TCP
+          hostPort: 80
+        - name: https
+          containerPort: 9899
+          protocol: TCP
+          hostPort: 443
         - name: http-metrics
           containerPort: 9797
           protocol: TCP
         - name: grpc
           containerPort: 9999
           protocol: TCP
+        volumeMounts:
+        - name: tls
+          mountPath: /data/cert
+          readOnly: true
         command:
         - ./podinfo
         - --port=9898
+        - --secure-port=9899
         - --port-metrics=9797
-        - --grpc-port=9999
-        - --grpc-service-name=backend
         - --level=info
+        - --cert-path=/data/cert
+        - --backend-url=http://backend:9898/echo
         env:
         - name: PODINFO_UI_COLOR
           value: "#34577c"
@@ -67,8 +88,8 @@ spec:
           timeoutSeconds: 5
         resources:
           limits:
-            cpu: 2000m
-            memory: 512Mi
+            cpu: 1000m
+            memory: 128Mi
           requests:
             cpu: 100m
             memory: 32Mi
