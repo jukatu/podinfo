@@ -13,12 +13,6 @@ COPY go.sum .
 COPY pkg pkg
 COPY ui ui
 
-RUN ls -la
-
-# COPY cmd cmd
-# COPY go.* .
-# COPY .goreleaser.yml .
-
 RUN go mod download
 
 RUN CGO_ENABLED=0 go build -ldflags "-s -w \
