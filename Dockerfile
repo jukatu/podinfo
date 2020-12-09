@@ -10,8 +10,6 @@ COPY cmd cmd
 COPY go.mod .
 COPY .goreleaser.yml .
 COPY go.sum .
-# COPY hack hack
-# COPY kustomize kustomize 
 COPY pkg pkg
 COPY ui ui
 
@@ -31,26 +29,26 @@ RUN CGO_ENABLED=0 go build -ldflags "-s -w \
     -X github.com/stefanprodan/podinfo/pkg/version.REVISION=${REVISION}" \
     -a -o bin/podcli cmd/podcli/*
 
-# FROM alpine:3.12
+FROM alpine:3.12
 
-# ARG BUILD_DATE
-# ARG VERSION
-# ARG REVISION
+ARG BUILD_DATE
+ARG VERSION
+ARG REVISION
 
-# LABEL maintainer="stefanprodan"
+LABEL maintainer="stefanprodan"
 
-# RUN addgroup -S app \
-#     && adduser -S -g app app \
-#     && apk --no-cache add \
-#     ca-certificates curl netcat-openbsd
+RUN addgroup -S app \
+    && adduser -S -g app app \
+    && apk --no-cache add \
+    ca-certificates curl netcat-openbsd
 
-# WORKDIR /home/app
+WORKDIR /home/app
 
-# COPY --from=builder /podinfo/bin/podinfo .
-# COPY --from=builder /podinfo/bin/podcli /usr/local/bin/podcli
-# COPY ./ui ./ui
-# RUN chown -R app:app ./
+COPY --from=builder /podinfo/bin/podinfo .
+COPY --from=builder /podinfo/bin/podcli /usr/local/bin/podcli
+COPY ./ui ./ui
+RUN chown -R app:app ./
 
-# USER app
+USER app
 
-# CMD ["./podinfo"]
+CMD ["./podinfo"]
