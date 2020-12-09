@@ -6,7 +6,7 @@ RUN mkdir -p /podinfo/
 
 WORKDIR /podinfo
 
-COPY . .
+COPY cmd cmd
 
 RUN pwd
 RUN ls -la
