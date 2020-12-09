@@ -9,7 +9,7 @@ WORKDIR /podinfo
 COPY cmd cmd
 
 RUN pwd
-RUN ls -la
+RUN ls -la cmd
 
 # RUN go mod download
 
