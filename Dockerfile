@@ -6,9 +6,11 @@ RUN mkdir -p /podinfo/
 
 WORKDIR /podinfo
 
-COPY cmd cmd
-COPY go.* .
-COPY .goreleaser.yml .
+COPY . .
+
+# COPY cmd cmd
+# COPY go.* .
+# COPY .goreleaser.yml .
 
 RUN go mod download
 
