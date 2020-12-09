@@ -14,10 +14,10 @@ import (
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 
-	"github.com/stefanprodan/podinfo/pkg/api"
-	"github.com/stefanprodan/podinfo/pkg/grpc"
-	"github.com/stefanprodan/podinfo/pkg/signals"
-	"github.com/stefanprodan/podinfo/pkg/version"
+	"github.com/jukatu/podinfo/pkg/api"
+	"github.com/jukatu/podinfo/pkg/grpc"
+	"github.com/jukatu/podinfo/pkg/signals"
+	"github.com/jukatu/podinfo/pkg/version"
 )
 
 func main() {
