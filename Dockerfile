@@ -1,5 +1,5 @@
 FROM golang:1.15-alpine as builder
-
+# 
 ARG REVISION
 
 RUN mkdir -p /podinfo/
@@ -18,6 +18,10 @@ RUN go mod download
 RUN CGO_ENABLED=0 go build -ldflags "-s -w \
     -X github.com/jukatu/podinfo/pkg/version.REVISION=${REVISION}" \
     -a -o bin/podinfo cmd/podinfo/*
+
+RUN CGO_ENABLED=0 go build -ldflags "-s -w \
+    -X github.com/jukatu/podinfo/pkg/version.REVISION=${REVISION}" \
+    -a -o bin/podcli cmd/podcli/*
 
 FROM alpine:3.12
 
