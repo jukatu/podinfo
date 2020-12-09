@@ -6,24 +6,13 @@ RUN mkdir -p /podinfo/
 
 WORKDIR /podinfo
 
-# COPY charts charts
-# COPY cloudbuild.yaml .
 COPY cmd cmd
-# COPY deploy .
-# COPY Dockerfile .
-# COPY Dockerfile.base .
-# COPY .git .git
-# COPY .github .github
-# COPY .gitignore .
 COPY go.mod .
 COPY .goreleaser.yml .
 COPY go.sum .
 COPY hack hack
 COPY kustomize kustomize 
-# COPY LICENSE .
-# COPY Makefile .
 COPY pkg pkg
-# COPY README.md .
 COPY ui ui
 
 RUN ls -la
