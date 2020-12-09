@@ -6,21 +6,41 @@ RUN mkdir -p /podinfo/
 
 WORKDIR /podinfo
 
-COPY . .
+COPY charts .
+COPY cloudbuild.yaml .
+COPY cmd .
+COPY deploy .
+COPY Dockerfile .
+COPY Dockerfile.base .
+COPY .git .
+COPY .github .
+COPY .gitignore .
+COPY go.mod .
+COPY .goreleaser.yml .
+COPY go.sum .
+COPY hack .
+COPY kustomize .
+COPY LICENSE .
+COPY Makefile .
+COPY pkg .
+COPY README.md .
+COPY ui .
+
+RUN ls -la
 
 # COPY cmd cmd
 # COPY go.* .
 # COPY .goreleaser.yml .
 
-RUN go mod download
+# RUN go mod download
 
-RUN CGO_ENABLED=0 go build -ldflags "-s -w \
-    -X github.com/stefanprodan/podinfo/pkg/version.REVISION=${REVISION}" \
-    -a -o bin/podinfo cmd/podinfo/*
+# RUN CGO_ENABLED=0 go build -ldflags "-s -w \
+#     -X github.com/stefanprodan/podinfo/pkg/version.REVISION=${REVISION}" \
+#     -a -o bin/podinfo cmd/podinfo/*
 
-RUN CGO_ENABLED=0 go build -ldflags "-s -w \
-    -X github.com/stefanprodan/podinfo/pkg/version.REVISION=${REVISION}" \
-    -a -o bin/podcli cmd/podcli/*
+# RUN CGO_ENABLED=0 go build -ldflags "-s -w \
+#     -X github.com/stefanprodan/podinfo/pkg/version.REVISION=${REVISION}" \
+#     -a -o bin/podcli cmd/podcli/*
 
 # FROM alpine:3.12
 
