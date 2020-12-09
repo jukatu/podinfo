@@ -10,8 +10,8 @@ COPY cmd cmd
 COPY go.mod .
 COPY .goreleaser.yml .
 COPY go.sum .
-COPY hack hack
-COPY kustomize kustomize 
+# COPY hack hack
+# COPY kustomize kustomize 
 COPY pkg pkg
 COPY ui ui
 
