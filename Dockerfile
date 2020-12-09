@@ -6,17 +6,17 @@ RUN mkdir -p /podinfo/
 
 WORKDIR /podinfo
 
-COPY cmd cmd
+# COPY cmd cmd
 
-RUN go mod download
+# RUN go mod download
 
-RUN CGO_ENABLED=0 go build -ldflags "-s -w \
-    -X github.com/stefanprodan/podinfo/pkg/version.REVISION=${REVISION}" \
-    -a -o bin/podinfo cmd/podinfo/*
+# RUN CGO_ENABLED=0 go build -ldflags "-s -w \
+#     -X github.com/stefanprodan/podinfo/pkg/version.REVISION=${REVISION}" \
+#     -a -o bin/podinfo cmd/podinfo/*
 
-RUN CGO_ENABLED=0 go build -ldflags "-s -w \
-    -X github.com/stefanprodan/podinfo/pkg/version.REVISION=${REVISION}" \
-    -a -o bin/podcli cmd/podcli/*
+# RUN CGO_ENABLED=0 go build -ldflags "-s -w \
+#     -X github.com/stefanprodan/podinfo/pkg/version.REVISION=${REVISION}" \
+#     -a -o bin/podcli cmd/podcli/*
 
 # FROM alpine:3.12
 
