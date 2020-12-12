@@ -3,7 +3,7 @@ kind: Kustomization
 namespace: webapp
 resources:
   # - ../../bases/webapp/common
-  - ../.././.bases/webapp/common
+  - ../../../bases/webapp/common
   # - ../../bases/backend
   # - ../../bases/frontend
   # - ../../bases/cache
